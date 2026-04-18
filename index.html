@@ -1,64 +1,141 @@
 <!DOCTYPE html><html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CBR – Corporação Brasileira de Registros Climáticos</title><style>
+body{
   margin:0;
-  font-family: Arial;
+  font-family:Arial;
+  background:#08121f;
+  color:#f0f4f8;
+}
+
+/* NAV */
+.nav{
   background:#0b1e35;
-  color:white;
+  padding:15px;
   display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}.box {
-display:grid;
-grid-template-columns: 1fr 1fr;
-gap:10px;
-width:300px;
+  justify-content:space-between;
 }
 
-.card {
-background:#08121f;
-padding:15px;
-border-radius:6px;
-text-align:center;
+.nav a{
+  color:#8fa8be;
+  text-decoration:none;
+  margin-left:15px;
 }
 
-.label {
-font-size:12px;
-color:#8fa8be;
+/* HERO */
+.hero{
+  padding:40px;
+  text-align:center;
 }
 
-.value {
-font-size:22px;
-font-weight:bold;
+.hero h1{
+  font-size:28px;
 }
-</style>
 
-</head><body><div class="box">
-  <div class="card"><div class="label">Temp</div><div id="temp" class="value">--</div></div>
-  <div class="card"><div class="label">Umidade</div><div id="umidade" class="value">--</div></div>
-  <div class="card"><div class="label">Vento</div><div id="vento" class="value">--</div></div>
-  <div class="card"><div class="label">Clima</div><div id="desc" class="value">--</div></div>
+/* PAINEL */
+.painel{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  padding:20px;
+}
+
+.card{
+  background:#0b1e35;
+  padding:20px;
+  border-radius:8px;
+}
+
+.label{
+  font-size:12px;
+  color:#8fa8be;
+}
+
+.valor{
+  font-size:26px;
+  font-weight:bold;
+}
+
+/* STATUS */
+.status{
+  text-align:center;
+  margin-top:10px;
+  font-size:13px;
+  color:#4ab3e8;
+}
+
+/* SECTION */
+.section{
+  padding:30px;
+}
+
+.footer{
+  text-align:center;
+  padding:15px;
+  background:#0b1e35;
+  font-size:12px;
+}
+</style></head><body><div class="nav">
+  <div>CBR</div>
+  <div>
+    <a href="#painel">Painel</a>
+    <a href="#sobre">Sobre</a>
+  </div>
+</div><div class="hero">
+  <h1>Corporação Brasileira de Registros Climáticos</h1>
+  <p>Monitoramento e registros de eventos meteorológicos</p>
+</div><!-- PAINEL --><div id="painel" class="painel">  <div class="card">
+    <div class="label">Temperatura</div>
+    <div class="valor" id="temp">--°C</div>
+  </div>  <div class="card">
+    <div class="label">Umidade</div>
+    <div class="valor" id="umidade">--%</div>
+  </div>  <div class="card">
+    <div class="label">Vento</div>
+    <div class="valor" id="vento">-- m/s</div>
+  </div>  <div class="card">
+    <div class="label">Condição</div>
+    <div class="valor" id="desc">--</div>
+  </div></div><div class="status" id="status">
+Carregando dados meteorológicos...
+</div><!-- SOBRE --><div id="sobre" class="section">
+  <h2>Sobre o CBR</h2>
+  <p>
+    A Corporação Brasileira de Registros Climáticos (CBR) é uma iniciativa
+    voltada à coleta e organização de registros meteorológicos,
+    incluindo eventos não oficialmente documentados.
+  </p>
+</div><div class="footer">
+  CBR © 2026
 </div><script>
 const API_KEY = "ece4cd13060d6d6c75a97e6a27606af3";
 
-async function clima(lat, lon) {
-  const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pt_br`
-  );
-  const d = await res.json();
+async function clima(){
+  try{
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=Bom Jesus do Itabapoana,BR&appid=${API_KEY}&units=metric&lang=pt_br`
+    );
 
-  temp.innerText = d.main.temp.toFixed(1)+"°C";
-  umidade.innerText = d.main.humidity+"%";
-  vento.innerText = d.wind.speed+" m/s";
-  desc.innerText = d.weather[0].description;
+    const d = await res.json();
+
+    document.getElementById("temp").innerText = d.main.temp.toFixed(1)+"°C";
+    document.getElementById("umidade").innerText = d.main.humidity+"%";
+    document.getElementById("vento").innerText = d.wind.speed+" m/s";
+    document.getElementById("desc").innerText = d.weather[0].description;
+
+    document.getElementById("status").innerText = "Dados atualizados com sucesso";
+
+  }catch(e){
+    document.getElementById("status").innerText = "Erro ao carregar dados";
+    console.log("erro:", e);
+  }
 }
 
-navigator.geolocation.getCurrentPosition(p=>{
-  clima(p.coords.latitude,p.coords.longitude);
-});
+// roda ao carregar
+clima();
+
+// atualiza a cada 30s
+setInterval(clima, 30000);
 </script></body>
 </html>
