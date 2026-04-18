@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0b1e35;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}.box {
+display:grid;
+grid-template-columns: 1fr 1fr;
+gap:10px;
+width:300px;
+}
+
+.card {
+background:#08121f;
+padding:15px;
+border-radius:6px;
+text-align:center;
+}
+
+.label {
+font-size:12px;
+color:#8fa8be;
+}
+
+.value {
+font-size:22px;
+font-weight:bold;
+}
+</style>
+
+</head><body><div class="box">
+  <div class="card"><div class="label">Temp</div><div id="temp" class="value">--</div></div>
+  <div class="card"><div class="label">Umidade</div><div id="umidade" class="value">--</div></div>
+  <div class="card"><div class="label">Vento</div><div id="vento" class="value">--</div></div>
+  <div class="card"><div class="label">Clima</div><div id="desc" class="value">--</div></div>
+</div><script>
+const API_KEY = "ece4cd13060d6d6c75a97e6a27606af3";
+
+async function clima(lat, lon) {
+  const res = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pt_br`
+  );
+  const d = await res.json();
+
+  temp.innerText = d.main.temp.toFixed(1)+"°C";
+  umidade.innerText = d.main.humidity+"%";
+  vento.innerText = d.wind.speed+" m/s";
+  desc.innerText = d.weather[0].description;
+}
+
+navigator.geolocation.getCurrentPosition(p=>{
+  clima(p.coords.latitude,p.coords.longitude);
+});
+</script></body>
+</html>
