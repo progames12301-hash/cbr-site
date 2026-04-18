@@ -1,0 +1,74 @@
+  "pageName": "HomePage",
+  "exportDate": "2026-04-18T15:49:20.721Z",
+  "links": {
+    "registros": "https://sites.google.com/view/cbr-registros/in%C3%ADcio",
+    "contato": "https://forms.gle/dtN51VMZHScbd7vHA"
+  },
+  "logoUrl": "https://static.wixstatic.com/media/71ea30_b3ed1f71aef84438a27af2b7d852473f~mv2.png",
+  "sections": [
+    {
+      "name": "Hero Section",
+      "type": "hero",
+      "content": {
+        "title": "COMISSÃO DE REGISTROS METEOROLÓGICOS CLIMÁTICOS",
+        "subtitle": "Sistema de Validação Ativo",
+        "logo": "https://static.wixstatic.com/media/71ea30_b3ed1f71aef84438a27af2b7d852473f~mv2.png"
+      }
+    },
+    {
+      "name": "Mandate Section",
+      "type": "sticky-scroll",
+      "statements": [
+        {
+          "title": "Validação Científica",
+          "icon": "ShieldAlert",
+          "description": "A CBR é a autoridade reconhecida na validação de eventos meteorológicos extremos no Brasil. Todos os registros são submetidos a processo rigoroso de verificação técnica."
+        },
+        {
+          "title": "Certificação Oficial",
+          "icon": "Database",
+          "description": "Trabalhamos com rigor científico para documentar e certificar recordes climáticos. Emitimos certificados oficiais reconhecidos por instituições nacionais e internacionais."
+        },
+        {
+          "title": "Transparência Total",
+          "icon": "Activity",
+          "description": "Cada registro passa por análise técnica rigorosa. Todos os dados e metodologias são públicos e acessíveis para consulta e verificação."
+        }
+      ]
+    },
+    {
+      "name": "Gateway Section",
+      "type": "interactive-routing",
+      "links": [
+        {
+          "number": "01",
+          "title": "ACESSAR REGISTROS",
+          "description": "Explore nossa base de dados completa de eventos meteorológicos extremos validados.",
+          "icon": "Database",
+          "url": "https://sites.google.com/view/cbr-registros/in%C3%ADcio",
+          "type": "external"
+        },
+        {
+          "number": "02",
+          "title": "FALE CONOSCO",
+          "description": "Entre em contato para submeter um novo registro ou para dúvidas institucionais.",
+          "icon": "Activity",
+          "url": "https://forms.gle/dtN51VMZHScbd7vHA",
+          "type": "external"
+        }
+      ]
+    }
+  ],
+  "styling": {
+    "colors": {
+      "background": "#000000",
+      "foreground": "#FFFFFF",
+      "primary": "#FF0000",
+      "primaryForeground": "#FFFFFF"
+    },
+    "fonts": {
+      "heading": "anton",
+      "paragraph": "azeret-mono"
+    }
+  }
+}
